@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+    web:
+        image: nginx:latest
+        restart: always   
+        ports:
+            - "8080:80"
+        depends_on:
+          - php
+        volumes:
+            - ./code:/code
+            - ./site.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - code-network
+    php:
+        image: php:fpm
+        restart: always
+        tty: true
+        depends_on:
+          - database
+        volumes:
+            - ./code:/code
+        networks:
+            - code-network
+    database:
+        image: mysql:5.7
+        restart: always
+        ports:
+            - "33061:3306"
+        command: --init-file /data/application/schema.sql
+        volumes:
+            - ./schema.sql:/data/application/schema.sql
+        environment:
+            MYSQL_ROOT_USER: root
+            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_DATABASE: dock
+networks:
+    code-network:
+        driver: bridge
