@@ -19,9 +19,9 @@
 -- Table structure for table `people`
 --
 
+
 DROP TABLE IF EXISTS `people`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `people` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` char(255) NOT NULL,
@@ -30,8 +30,7 @@ CREATE TABLE `people` (
   UNIQUE KEY `people_id_uindex` (`id`),
   UNIQUE KEY `people_name_uindex` (`name`),
   UNIQUE KEY `people_surname_uindex` (`surname`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `people`
@@ -52,14 +51,13 @@ DROP TABLE IF EXISTS `tasks`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tasks` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` char(0) DEFAULT NULL,
+  `title` char(255) DEFAULT NULL,
   `person_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `tasks_id_uindex` (`id`),
   KEY `tasks_people_id_fk` (`person_id`),
   CONSTRAINT `tasks_people_id_fk` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tasks`
